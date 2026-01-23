@@ -1,33 +1,25 @@
-import type { Blog, CreateBlogData } from '@/types/blog';
+import type { Blog, CreateBlogData } from '@/types/blog'
 
-const API_BASE = 'http://localhost:3001';
+const BASE_URL = 'http://localhost:3001'
 
-export const fetchBlogs = async (): Promise<Blog[]> => {
-  const response = await fetch(`${API_BASE}/blogs`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch blogs');
-  }
-  return response.json();
-};
+export async function fetchBlogs(): Promise<Blog[]> {
+  const res = await fetch(`${BASE_URL}/blogs`)
+  if (!res.ok) throw new Error('Failed to fetch blogs')
+  return res.json()
+}
 
-export const fetchBlogById = async (id: string): Promise<Blog> => {
-  const response = await fetch(`${API_BASE}/blogs/${id}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch blog');
-  }
-  return response.json();
-};
+export async function fetchBlogById(id: string): Promise<Blog> {
+  const res = await fetch(`${BASE_URL}/blogs/${id}`)
+  if (!res.ok) throw new Error('Failed to fetch blog')
+  return res.json()
+}
 
-export const createBlog = async (data: CreateBlogData): Promise<Blog> => {
-  const response = await fetch(`${API_BASE}/blogs`, {
+export async function createBlog(data: CreateBlogData): Promise<Blog> {
+  const res = await fetch(`${BASE_URL}/blogs`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
-  });
-  if (!response.ok) {
-    throw new Error('Failed to create blog');
-  }
-  return response.json();
-};
+  })
+  if (!res.ok) throw new Error('Failed to create blog')
+  return res.json()
+}
